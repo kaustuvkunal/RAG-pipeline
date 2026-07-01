@@ -3,3 +3,4 @@ chroma_db/
 .DS_Store
 chroma_db/
 .env
+data/
