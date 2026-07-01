@@ -4,30 +4,127 @@ A lightweight, production-ready Retrieval-Augmented Generation system built with
 
 ## 🚀 Quick Start
 
-1. **Install dependencies**
+To setup the environment properly, follow these steps:
+
+1. **Clone the repository**
    ```bash
-   pip install fastapi uvicorn langchain pydantic-settings langchain-openai langchain-community chromadb faiss-cpu ollama httpx
+   git clone https://github.com/kaustuvkunal/.....git
+   cd <repository-name>
+   ```
 
-Fast API Execution : 
+2. **Create a virtual environment**
+   ```bash
+   python3 -m venv .venv
+   ```
 
+3. **Activate the virtual environment**
+   - On macOS/Linux:
+     ```bash
+     source .venv/bin/activate
+     ```
+   - On Windows:
+     ```bash
+     .venv\Scripts\activate
+     ```
 
-pip install pipreqs
+4. **Install dependencies using pip**
+   ```bash
+   pip install .
+   ```
 
-pipreqs . --force
+   Or for development mode:
+   ```bash
+   pip install -e ".[dev]"
+   ```
 
-Prerequsites : 
- export KMP_DUPLICATE_LIB_OK=TRUE
+5. **Copy and configure environment variables**
+   ```bash
+   cp .env.example .env
+   ```
 
+6. **Export Environment Variable**
+   ```bash
+   export KMP_DUPLICATE_LIB_OK=TRUE
+   ```
 
-To execute : 
-  uvicorn src.main:app --reload
+7. **Run the application using uvicorn**
+   ```bash
+   uvicorn src.main:app --reload
+   ```
 
+## 🛠️ Configuration
 
+### Environment Variables
+Create a `.env` file in the project root with the following variables:
+```
+OPENAI_API_KEY=your_openai_api_key_here
+VECTOR_DB_PATH=./vector_db
+EMBEDDING_MODEL_NAME=text-embedding-3-small
+```
 
-To execute 
+### Config File
+Update `src/config.py` to match your specific requirements for:
+- Embedding model settings
+- Vector database configuration
+- Retrieval parameters
 
-check .env
-update  config file 
-update prompt.py with correct prompt template 
+## 📝 Prompt Template
 
-update  Embeeding model , vectorDB
+Modify `src/prompt.py` to customize the prompt template according to your use case.
+
+## 🧪 Testing
+
+To run tests:
+```bash
+pytest
+```
+
+## 🏗️ Project Structure
+
+```
+.
+├── src/
+│   ├── __init__.py
+│   ├── main.py
+│   ├── config.py
+│   ├── prompt.py
+│   ├── embedding_model.py
+│   ├── llm_client.py
+│   ├── vectorstore.py
+│   ├── chunking.py
+│   ├── retriver.py
+│   ├── api/
+│   ├── pipeline/
+│   ├── eval/
+│   ├── ui/
+│   └── archive/
+├── test/
+├── data/
+├── .env.example
+├── pyproject.toml
+├── README.md
+└── requirements.txt
+```
+
+## 📦 Dependencies
+
+This project uses the following key dependencies:
+- FastAPI: Web framework for building APIs
+- LangChain: RAG framework
+- Pydantic Settings: Configuration management
+- Qdrant: Vector database
+- OpenAI: LLM integration
+
+## 🔧 Development
+
+For development, install with dev dependencies:
+```bash
+pip install -e ".[dev]"
+```
+
+Run code formatting and linting:
+```bash
+ruff format
+ruff check
+mypy src/
+```
