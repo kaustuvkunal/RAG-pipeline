@@ -2,7 +2,7 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import model_validator
 from pydantic import Field
-from typing import Literal
+from typing import Dict, Literal, Any
 from .logging_config import get_logger
 import os 
 
@@ -27,10 +27,13 @@ class RAGConfig(BaseSettings):
 
     # qdant 
     qdrant_url: str = os.getenv('QDRANT_URL', 'http://localhost:6333')
+    qdrant_collection_name: str =os.getenv('QDRANT_COLLECTION_NAME', 'Qdrant_default_collection')
+    qdrant_persist_directory :str =os.getenv('QDRANT_PERSIST_DIR','./qdrant_db')
 
     # Embedding & LLM Backend
     embedder_type: Literal["ollama", "openai"] = os.getenv('EMBEDDER_TYPE', 'ollama')
     embedding_model: str = os.getenv('EMBEDDING_MODEL', 'qwen3-embedding:0.6b')
+    embedding_dim : int = int(os.getenv('EMBEDDING_DIM', 500))
     embedding_base_url: str = os.getenv('EMBEDDING_BASE_URL', 'http://localhost:11434')
 
     llm_type: Literal["ollama", "openai"] = os.getenv('LLM_TYPE', 'ollama')
@@ -38,8 +41,18 @@ class RAGConfig(BaseSettings):
     llm_base_url: str = os.getenv('LLM_BASE_URL', 'http://localhost:11434/v1')
     api_key: str = os.getenv('API_KEY', 'ollama')
 
+    # Search Strategy
     search_strategy: Literal["semantic", "keyword", "hybrid"] = os.getenv('SEARCH_STRATEGY', 'semantic')
     k: int = int(os.getenv('K', 5))
+
+    # deepeval
+    # fetch from .env
+    answer_relevancy_threshold: float = float(os.getenv('ANSWER_RELEVANCY_THRESHOLD', 0.8))
+    faithfulness_threshold: float = float(os.getenv('FAITHFULNESS_THRESHOLD', 0.8))
+    contextual_relevancy_threshold: float = float(os.getenv('CONTEXTUAL_RELEVANCY_THRESHOLD', 0.8))
+    expected_output_needed : bool = os.getenv('EXPECTED_OUTPUT_NEEDED', 'false').lower() == 'true'   
+    number_of_evolution :int = int(os.getenv('NUM_OF_EVOLUTIONS', 10))
+    
 
 
     @model_validator(mode="after")

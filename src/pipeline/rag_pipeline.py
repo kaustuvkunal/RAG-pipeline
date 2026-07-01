@@ -7,7 +7,7 @@ from ..vectorstore import get_vectorstore
 from ..chunking import get_chunker
 from ..embedding_model import get_embedding_model
 from ..llm_client import get_llm_client
-from ..retriver import get_retriever
+from ..retriever import get_retriever
 from ..prompt import get_rag_prompt
 from ..logging_config import get_logger, log_sequence
 from operator import itemgetter
