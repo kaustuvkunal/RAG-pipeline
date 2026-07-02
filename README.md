@@ -1,4 +1,9 @@
 # 🔍 Modular RAG Engine
+[![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/downloads/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.104%2B-blue)](https://fastapi.tiangolo.com/)
+[![LangChain](https://img.shields.io/badge/LangChain-0.3%2B-blue)](https://python.langchain.com/)
+[![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/kaustuvkunal/...../blob/main/LICENSE)
+[![Status](https://img.shields.io/badge/status-development-yellow)](https://github.com/kaustuvkunal/...../commits/main)
 
 A lightweight, production-ready Retrieval-Augmented Generation system built with FastAPI, LangChain v0.3+, and Pydantic Settings. Features explicit invocation tracking, secure config validation, and lazy pipeline initialization.
 
