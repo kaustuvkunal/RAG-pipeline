@@ -6,7 +6,7 @@ from .logging_config import get_logger
 
 logger = get_logger("retriever")
 
-def get_retriever(vector_store, chunks: List[Document], config) -> EnsembleRetriever | ...:
+def get_retriever(vector_store, chunks: List[Document], config) -> EnsembleRetriever  : # type: ignore
     logger.info(f"▶️ [RETRIEVER] strategy={config.search_strategy} | top_k={config.k}")
     
     if config.search_strategy == "semantic":

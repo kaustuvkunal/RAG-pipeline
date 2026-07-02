@@ -55,9 +55,14 @@ To setup the environment properly, follow these steps:
      .venv\Scripts\activate
      ```
 
-4. **Install dependencies from requirements.txt**
+4. **Install dependencies using pip**
    ```bash
-   pip install -r requirements.txt
+   pip install .
+   ```
+
+   Or for development mode:
+   ```bash
+   pip install -e ".[dev]"
    ```
 
 5. **Copy and configure environment variables**
@@ -86,11 +91,68 @@ EMBEDDING_MODEL_NAME=text-embedding-3-small
 ```
 
 ### Config File
-Update `config.py` to match your specific requirements for:
+Update `src/config.py` to match your specific requirements for:
 - Embedding model settings
 - Vector database configuration
 - Retrieval parameters
 
 ## 📝 Prompt Template
 
-Modify `prompt.py` to customize the prompt template according to your use case.
+Modify `src/prompt.py` to customize the prompt template according to your use case.
+
+## 🧪 Testing
+
+To run tests:
+```bash
+pytest
+```
+
+## 🏗️ Project Structure
+
+```
+.
+├── src/
+│   ├── __init__.py
+│   ├── main.py
+│   ├── config.py
+│   ├── prompt.py
+│   ├── embedding_model.py
+│   ├── llm_client.py
+│   ├── vectorstore.py
+│   ├── chunking.py
+│   ├── retriver.py
+│   ├── api/
+│   ├── pipeline/
+│   ├── eval/
+│   ├── ui/
+│   └── archive/
+├── test/
+├── data/
+├── .env.example
+├── pyproject.toml
+├── README.md
+└── requirements.txt
+```
+
+## 📦 Dependencies
+
+This project uses the following key dependencies:
+- FastAPI: Web framework for building APIs
+- LangChain: RAG framework
+- Pydantic Settings: Configuration management
+- Qdrant: Vector database
+- OpenAI: LLM integration
+
+## 🔧 Development
+
+For development, install with dev dependencies:
+```bash
+pip install -e ".[dev]"
+```
+
+Run code formatting and linting:
+```bash
+ruff format
+ruff check
+mypy src/
+```

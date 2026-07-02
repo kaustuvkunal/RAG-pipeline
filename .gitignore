@@ -4,3 +4,12 @@ chroma_db/
 chroma_db/
 .env
 data/
+vectorstore/
+logs/
+temp/
+*.log
+*.tmp
+__pycache__/
+*.ipyn
+src/__pycache__/
+tests/__pycache__/

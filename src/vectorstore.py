@@ -32,10 +32,18 @@ def get_vectorstore(documents: List[Document], embedder, config):
         logger.info("✅ [VECTORSTORE] Completed ingestion successfully.")
         # Log vector DB location
         logger.info(f"Chroma DB Vector DB path is - {config.chroma_persist_directory}")
+        
+        logger.info("✅ [VECTORSTORE] ChromaDB persisted to disk.")
     #
     elif config.vector_db_type == "faiss":
         from langchain_community.vectorstores import FAISS
         vector_store = FAISS.from_documents(documents, embedder)
+        
+        # Save FAISS vector store to disk
+        faiss_persist_directory = getattr(config, 'faiss_persist_directory', 'vectorstores/faiss')
+        os.makedirs(faiss_persist_directory, exist_ok=True)
+        vector_store.save_local(faiss_persist_directory)
+        logger.info(f"✅ [VECTORSTORE] FAISS Vector Store persisted to {faiss_persist_directory}")
         
     elif config.vector_db_type == "qdrant":
         from langchain_qdrant import QdrantVectorStore

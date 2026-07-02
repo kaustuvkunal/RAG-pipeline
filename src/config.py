@@ -21,9 +21,12 @@ class RAGConfig(BaseSettings):
     # Vector Database
     vector_db_type: Literal["faiss", "qdrant", "chroma"] = os.getenv('VECTOR_DB_TYPE', 'faiss')
 
+
+    # faiss 
+    faiss_persist_directory : str = os.getenv('FAISS_PERSIST_DIRECTORY', './vectorstore/faiss')
     # Chroma 
     chroma_collection_name: str = os.getenv('CHROMA_COLLECTION_NAME', 'tesla_rag')
-    chroma_persist_directory: str = os.getenv('CHROMA_PERSIST_DIRECTORY', './chroma_db')
+    chroma_persist_directory: str = os.getenv('CHROMA_PERSIST_DIRECTORY', './vectorstore/chroma_db')
 
     # qdant 
     qdrant_url: str = os.getenv('QDRANT_URL', 'http://localhost:6333')
