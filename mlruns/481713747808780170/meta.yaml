@@ -1,9 +1,0 @@
-artifact_location: mlflow-artifacts:/481713747808780170
-creation_time: 1783311172266
-effective_trace_archival_retention: null
-experiment_id: '481713747808780170'
-last_update_time: 1783311172266
-lifecycle_stage: active
-name: RAG-pipeline
-trace_location: null
-workspace: default
