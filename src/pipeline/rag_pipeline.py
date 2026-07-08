@@ -11,6 +11,7 @@ from ..retriever import get_retriever
 from ..prompt import get_rag_prompt
 from ..logging_config import get_logger, log_sequence
 from operator import itemgetter
+import mlflow 
 
 logger = get_logger("pipeline")
 
@@ -22,11 +23,30 @@ class RAGPipeline:
         self.config = config
         self._retriever = None
         self._chain = None
-
+    
+    def _log_mlflow_step(self, step_name: str, metrics: dict = None):
+        """Helper to safely log metrics to active MLflow run."""
+        if mlflow.active_run():
+            logger.debug(f"📊 [MLFLOW] Logging {step_name}...")
+            for k, v in (metrics or {}).items():
+                mlflow.log_metric(k, v)
     def _ensure_initialized(self):
         if self._retriever is not None and self._chain is not None:
             logger.debug("⏭️ [PIPELINE] Already initialized. Skipping re-init.")
             return
+        
+        # Log pipeline config params once
+        if mlflow.active_run():
+            mlflow.log_params({
+                "doc_path": self.config.doc_path,
+                "chunk_strategy": self.config.chunk_strategy,
+                "chunk_size": self.config.chunk_size,
+                "chunk_overlap": self.config.chunk_overlap,
+                "vector_db_type": self.config.vector_db_type,
+                "embedder_model": self.config.embedding_model,
+                "llm_model": self.config.llm_model
+            })
+
             
         # [1/6] Load Documents
         with log_sequence("Loading documents"):
@@ -50,7 +70,8 @@ class RAGPipeline:
         with log_sequence("Chunking text"):
             chunks = get_chunker(self.config).split_documents(docs)
             logger.info(f"◼️  [CHUNKING] Split into {len(chunks)} chunks (strategy={self.config.chunk_strategy})")
-
+            self._log_mlflow_step("chunking", {"num_chunks": len(chunks)})
+            
         # [3/6] Generate Embeddings
         with log_sequence("Generating embeddings"):
             embedder = get_embedding_model(self.config)
@@ -84,3 +105,14 @@ class RAGPipeline:
         """Lazy initialization gate. Returns cached chain if available."""
         self._ensure_initialized()
         return self._chain
+    def log_initialization_artifact(self, output_dir: str = "mlflow_artifacts"):
+        """Safely save pipeline config as an MLflow artifact (recommended for startup)."""
+        import json
+        os.makedirs(output_dir, exist_ok=True)
+        filepath = f"{output_dir}/pipeline_config.json"
+        with open(filepath, "w") as f:
+            # Exclude private/None fields
+            clean_cfg = {k: str(v) for k, v in self.config.__dict__.items() 
+                         if not k.startswith('_') and v is not None}
+            json.dump(clean_cfg, f, indent=2)
+        return filepath

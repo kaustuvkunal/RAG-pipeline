@@ -1,5 +1,6 @@
 """Typed configuration with .env support & explicit validation."""
 from pydantic_settings import BaseSettings, SettingsConfigDict
+#from pydantic import BaseSettings, SettingsConfigDict
 from pydantic import model_validator
 from pydantic import Field
 from typing import Dict, Literal, Any

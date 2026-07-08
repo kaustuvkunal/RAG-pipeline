@@ -50,11 +50,12 @@ To setup the environment properly, follow these steps:
 6. **Export Environment Variable**
    ```bash
    export KMP_DUPLICATE_LIB_OK=TRUE
+   export MLFLOW_ALLOW_FILE_STORE=true
    ```
 
 7. **Run the application using uvicorn**
    ```bash
-   uvicorn src.main:app --reload
+   python -m uvicorn src.main:app --reload
    ```
 
 ## 🛠️ Configuration

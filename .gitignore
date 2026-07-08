@@ -13,3 +13,6 @@ __pycache__/
 *.ipyn
 src/__pycache__/
 tests/__pycache__/
+logs/
+src/rag_pipeline_project.egg-info
+src/archive

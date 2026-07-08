@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/481713747808780170/842fcf954fe24a15831ff19348793196/artifacts
+end_time: 1783433772505
+entry_point_name: ''
+experiment_id: '481713747808780170'
+lifecycle_stage: active
+run_id: 842fcf954fe24a15831ff19348793196
+run_name: pipeline_initialization
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783433665002
+status: 3
+tags: []
+user_id: kaustuv

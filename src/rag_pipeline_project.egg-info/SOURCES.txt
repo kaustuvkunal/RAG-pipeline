@@ -2,6 +2,7 @@ README.md
 pyproject.toml
 src/api/__init__.py
 src/api/endpoints.py
+src/api/endpoints_old.py
 src/archive/chunking.py
 src/archive/embedding.py
 src/archive/llm_client.py
@@ -17,4 +18,4 @@ src/rag_pipeline_project.egg-info/SOURCES.txt
 src/rag_pipeline_project.egg-info/dependency_links.txt
 src/rag_pipeline_project.egg-info/requires.txt
 src/rag_pipeline_project.egg-info/top_level.txt
-test/test.py
+src/scripts/generate_rag_dashboard.py
