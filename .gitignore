@@ -18,6 +18,7 @@ src/rag_pipeline_project.egg-info
 src/archive
 mlruns/
 mlartifacts/
-mlflow_artifacts
+mlflow_artifacts/
 mlflow.db
-
+build/
+.*
